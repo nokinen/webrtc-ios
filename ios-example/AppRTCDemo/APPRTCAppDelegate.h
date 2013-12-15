@@ -60,6 +60,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) APPRTCViewController *viewController;
-@property (nonatomic, strong)  RTCVideoTrack *localVideoTrack;
+@property (nonatomic, strong) RTCVideoTrack *localVideoTrack;
 
 @end

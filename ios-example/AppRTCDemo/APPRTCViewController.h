@@ -52,7 +52,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *captureButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *modeControl;
-@property (weak, nonatomic) RTCVideoRenderer *videoRenderer;
+@property (strong, nonatomic) RTCVideoRenderer *videoRenderer;
 @property (strong, nonatomic) VideoView *videoView;
 
 

@@ -44,11 +44,10 @@ struct CGRect;
 // A convenience method to create a renderer and window and render frames into
 // that window.
 + (RTCVideoRenderer *)videoRenderGUIWithFrame:(CGRect)frame;
-+ (UIView<RTCVideoRenderView> *)newRenderViewWithFrame:(CGRect)frame; //This UIView conforms to RTCVideoRendererDelegate
-- (id)initWithRenderView:(UIView<RTCVideoRenderView> *)renderView; //This must be one of the views from newRenderViewWithFrame:
++ (UIView<RTCVideoRenderView> *)newRenderViewWithFrame:(CGRect)frame;   // Conforms to RTCVideoRendererDelegate
+- (id)initWithRenderView:(UIView<RTCVideoRenderView> *)renderView;      // Must be one of the views from newRenderViewWithFrame:
 
-// Initialize the renderer.  Requires a delegate which does the actual drawing
-// of frames.
+// Initialize the renderer.  Requires a delegate which does the actual drawing of frames.
 - (id)initWithDelegate:(id<RTCVideoRendererDelegate>)delegate;
 
 - (BOOL)start;

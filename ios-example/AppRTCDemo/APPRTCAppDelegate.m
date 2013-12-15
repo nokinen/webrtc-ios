@@ -88,14 +88,14 @@
              addedStream:(RTCMediaStream *)stream {
   NSLog(@"PCO onAddStream.");
   dispatch_async(dispatch_get_main_queue(), ^(void) {
-//    NSAssert([stream.audioTracks count] >= 1,
-//             @"Expected at least 1 audio stream");
+    NSAssert([stream.audioTracks count] >= 1,
+             @"Expected at least 1 audio stream");
 
-//    NSAssert([stream.videoTracks count] >= 1,
-//             @"Expected at least 1 video stream");
+    NSAssert([stream.videoTracks count] >= 1,
+             @"Expected at least 1 video stream");
       
     if ([stream.videoTracks count] > 0) {
-        [[self videoView] renderVideoTrackInterface:[stream.videoTracks objectAtIndex:0]];
+        [[self videoView] setRemoteVideoTrack:[stream.videoTracks objectAtIndex:0]];
         //[[self delegate] whiteboardConnection:self renderRemoteVideo:[stream.videoTracks objectAtIndex:0]];
     }
   });
@@ -291,8 +291,7 @@
     }
 
     //** this adds the local camera video feed to the view as a preview
-    //[self.viewController.videoView renderVideoTrackInterface:[self localVideoTrack]];
-    // [[self localVideoTrack] addRenderer:self.viewController.videoRenderer];
+    [self.viewController.videoView setLocalVideoTrack:[self localVideoTrack]];
     
     //** pass the videoView to the observer, for later rendering
     self.pcObserver.videoView = self.viewController.videoView;

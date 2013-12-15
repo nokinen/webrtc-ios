@@ -121,7 +121,6 @@
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-#if 0
   //**
   //** see doneWithNumberPad above
 
@@ -139,7 +138,6 @@
   NSString *url =
       [NSString stringWithFormat:@"apprtc://apprtc.appspot.com/?r=%@", room];
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-#endif
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -149,15 +147,12 @@
   return YES;
 }
 
-
-
-#if 1
 - (void)setVideoCapturer {
 
     //---------------------------------
 	//----- SETUP CAPTURE SESSION -----
 	//---------------------------------
-#if 0
+
 	NSLog(@"Setting up capture session");
     self.captureSession = [[AVCaptureSession alloc] init];
 	
@@ -188,16 +183,6 @@
 		NSLog(@"Couldn't create video capture device");
 	}
 	
-	//ADD AUDIO INPUT
-	//NSLog(@"Adding audio input");
-	//AVCaptureDevice *audioCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-	//NSError *error = nil;
-	//AVCaptureDeviceInput *audioInput = [AVCaptureDeviceInput deviceInputWithDevice:audioCaptureDevice error:&error];
-	//if (audioInput)
-	//{
-	//	[captureSession addInput:audioInput];
-    //	}
-
     //----- SET THE IMAGE QUALITY / RESOLUTION -----
 	//Options:
 	//	AVCaptureSessionPresetHigh - Highest recording quality (varies per device)
@@ -208,36 +193,30 @@
 	//	AVCaptureSessionPresetPhoto - Full photo resolution (not supported for video output)
     
 	NSLog(@"Setting image quality");
-	if ([[self.captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) //AVCaptureSessionPreset352x288] ) //]AVCaptureSessionPreset640x480])
-        //Check size based configs are supported before setting them
-		[self.captureSession setSessionPreset:AVCaptureSessionPreset640x480]) //AVCaptureSessionPreset352x288]; //AVCaptureSessionPreset640x480];
+	if ([self.captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
+		[self.captureSession setSessionPreset:AVCaptureSessionPreset640x480];
+    }
 
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
-    UIView *aView = self.view;
-    previewLayer.frame = CGRectMake(200, 400, self.view.frame.size.width, self.view.frame.size.height-140);
-#endif
+//    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
+//    previewLayer.frame = CGRectMake(20, 20, 120, 80);
     
     //** This places the VideoView window on the screen at this location, change to move around
-    CGRect frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-80);
-    _videoView = [[VideoView alloc] initWithFrame:frame];
-    //_videoView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
-    //[aView.layer addSublayer:previewLayer];
-    //** show video view on screen
+    _videoView = [[VideoView alloc] initWithFrame:self.view.bounds];
+    
     [self.view addSubview:_videoView];
+//    [[self.view layer]addSublayer:previewLayer];
 
     //** if interested in adding a self view  to your video conference app
-    //UIView *rv = [RTCVideoRenderer newRenderViewWithFrame:previewLayer.frame];
-    //_videoRenderer = [_videoView RTCVideoRenderer alloc] initWithRenderView:rv];
+//    UIView<RTCVideoRenderView> *rv = [RTCVideoRenderer newRenderViewWithFrame:CGRectMake(20, 20, 120, 80)];
+//    _videoRenderer = [[RTCVideoRenderer alloc] initWithRenderView:rv];
     
-    //APPRTCAppDelegate *ad = (APPRTCAppDelegate *)[[UIApplication sharedApplication] delegate];
-    //[[ad localVideoTrack] addRenderer:_videoRenderer];
-
+//    APPRTCAppDelegate *ad = (APPRTCAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    [[ad localVideoTrack] addRenderer:_videoRenderer];
 
     //----- START THE CAPTURE SESSION RUNNING -----
 	[self.captureSession startRunning];
     
 }
-#endif
 
 
 @end
